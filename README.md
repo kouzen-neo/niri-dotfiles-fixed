@@ -1,9 +1,13 @@
-# Niri WM Dotfiles
+# Niri WM Dotfiles (Fixed & Customized)
 
 <div align="center">
 
-**A productive and clean [Niri](https://github.com/YaLTeR/niri) configuration setup**  
-_Dynamic theming • Borderless layouts • Minimal_
+**A productive, clean, and bug-fixed [Niri](https://github.com/YaLTeR/niri) configuration setup**  
+_Customized fork of [saatvik333/niri-dotfiles](https://github.com/saatvik333/niri-dotfiles)_
+
+---
+
+> **Notice:** This is a personalized and bug-fixed fork. It resolves several critical upstream issues (Waybar crash, wallpaper loss on reboot, thumbnail CPU freeze) and adds integrated screen recording, screenshot utilities, and vertical window splitting.
 
 ---
 
@@ -27,6 +31,7 @@ _Dynamic theming • Borderless layouts • Minimal_
 
 ## Contents
 
+- [Fixes & Customizations](#fixes--customizations)
 - [Features](#features)
 - [Automatic Installation](#automatic-installation-recommended)
 - [What Gets Installed](#what-gets-installed)
@@ -42,6 +47,18 @@ _Dynamic theming • Borderless layouts • Minimal_
   - [Layout Controls](#layout-controls)
   - [Window Modes](#window-modes)
   - [Utilities](#utilities)
+
+## Fixes & Customizations
+
+This fork includes several critical bug fixes and workflow improvements over upstream:
+
+- **Waybar JSON Syntax Fix**: Corrected invalid control characters (unescaped newlines in `clock.format`) and trailing commas in `waybar/modules.json` that caused Waybar to crash on launch.
+- **Wallpaper Persistence**: Added `wallpaper-restore.sh` triggered on Niri startup, keeping wallpapers active across reboots. Initial wallpaper cache is configured on install to prevent black screens.
+- **CPU Throttling for Thumbnails**: Updated `scripts/bgselector.sh` to cap parallel worker jobs and run with `nice -n 19`, preventing 100% CPU lockups on multi-core laptops.
+- **Vertical Tiling (Top/Bottom Split)**: Added `MOD + ,` (`consume-window-into-column`) and `MOD + .` (`expel-window-from-column`) shortcuts.
+- **Built-in Screen Recording**: Added `MOD + Shift + G` toggle for `wf-recorder` with automated PipeWire system audio capture saving to `~/Videos/screenrecord`.
+- **Integrated Screenshots**: Configured `MOD + S` (fullscreen) and `MOD + Shift + S` (region) using `grim`, `slurp`, and `wl-copy`.
+- **Package Optimization**: Moved official Arch packages (`awww`, `thunar`, `pavucontrol`, `eza`, `dust`, `minizip`) from AUR to pacman, added missing recording/screenshot tools, and ensured scripts are executable on install.
 
 ## Features
 
