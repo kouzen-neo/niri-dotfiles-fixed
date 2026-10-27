@@ -26,7 +26,7 @@ fi
 progress_file=$(mktemp)
 touch "$progress_file"
 
-# Limit max parallel jobs to prevent system freeze during thumbnail generation
+# Use all available CPU cores for parallel processing
 max_jobs=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)
 (( max_jobs > 2 )) && max_jobs=2
 job_count=0
@@ -73,7 +73,7 @@ export -f generate_thumbnail
 
 # Use xargs for efficient parallel execution if available, fallback to bash loop
 if command -v xargs >/dev/null 2>&1 && [ -s "$to_generate" ]; then
-    cat "$to_generate" | nice -n 19 xargs -P "$max_jobs" -I {} bash -c \
+    cat "$to_generate" | nice -n 19 ionice -c 3 xargs -P "$max_jobs" -I {} bash -c \
         'generate_thumbnail "$1" "$2" "$3" "$4"' _ {} "$CACHE_DIR" "$WALL_DIR" "$progress_file"
 elif [ -s "$to_generate" ]; then
     # Fallback: manual parallel with all cores
@@ -115,6 +115,8 @@ rm "$rofi_input"
 if [ -n "$selected" ]; then
     selected_path="$WALL_DIR/$selected"
     if [ -f "$selected_path" ]; then
+        mkdir -p "$HOME/.cache/awww"
+        printf '%s\n' "$selected_path" > "$HOME/.cache/awww/last-wallpaper"
         awww img "$selected_path" -t fade --transition-duration 2 --transition-fps 30 &
         sleep 0.2
         "$HOME/.config/scripts/theme-sync.sh" &

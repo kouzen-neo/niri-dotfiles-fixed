@@ -158,6 +158,7 @@ alias mirror="sudo cachyos-rate-mirrors"
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
 
 # Shortcuts
+alias grep='rg'
 alias apt='man pacman'
 alias apt-get='man pacman'
 alias please='sudo'

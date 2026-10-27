@@ -55,7 +55,7 @@ _Dynamic theming • Borderless layouts • Minimal_
 For Arch Linux and Arch-based distributions (Manjaro, EndeavourOS, etc.):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/saatvik333/niri-dotfiles/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/kouzen-neo/niri-dotfiles-fixed/main/install.sh | sh
 ```
 
 **Important Requirements:**
@@ -165,10 +165,9 @@ Thanks to [vinceliuice](https://github.com/vinceliuice) and [Fausto-Korpsvart](h
 | Keybind              | Action                                           |
 | -------------------- | ------------------------------------------------ |
 | `MOD + Return`       | Open terminal (Alacritty)                        |
-| `MOD + Alt + Return` | Open terminal (Kitty)                            |
-| `MOD + B`            | Open primary browser (Firefox Developer Edition) |
-| `MOD + Alt + B`      | Open secondary browser (Google Chrome)           |
-| `MOD + A`            | Toggle application launcher (Vicinae)            |
+| `MOD + Space`        | Toggle application launcher (Vicinae)            |
+| `MOD + B`            | Open browser (Google Chrome)                     |
+| `MOD + Shift + K`    | Open KDE Connect                                 |
 | `MOD + E`            | Open file manager (Thunar)                       |
 | `MOD + Alt + E`      | Open TUI file manager (Yazi)                     |
 | `MOD + W`            | Open wallpaper selector                          |
@@ -268,16 +267,18 @@ Thanks to [vinceliuice](https://github.com/vinceliuice) and [Fausto-Korpsvart](h
 
 ### Layout Controls
 
-| Keybind                    | Action                        |
-| -------------------------- | ----------------------------- |
-| `MOD + C`                  | Center focused column         |
-| `MOD + Ctrl + C`           | Center all visible columns    |
-| `MOD + [`                  | Decrease column width by 10%  |
-| `MOD + ]`                  | Increase column width by 10%  |
-| `MOD + Shift + [`          | Decrease window height by 10% |
-| `MOD + Shift + ]`          | Increase window height by 10% |
-| `MOD + Ctrl + Scroll Down` | Decrease window height by 5%  |
-| `MOD + Ctrl + Scroll Up`   | Increase window height by 5%  |
+| Keybind                    | Action                                          |
+| -------------------------- | ----------------------------------------------- |
+| `MOD + ,`                  | Stack window into column (split vertical)       |
+| `MOD + .`                  | Expel window from column                        |
+| `MOD + C`                  | Center focused column                           |
+| `MOD + Ctrl + C`           | Center all visible columns                      |
+| `MOD + [`                  | Decrease column width by 10%                    |
+| `MOD + ]`                  | Increase column width by 10%                    |
+| `MOD + Shift + [`          | Decrease window height by 10%                   |
+| `MOD + Shift + ]`          | Increase window height by 10%                   |
+| `MOD + Ctrl + Scroll Down` | Decrease window height by 5%                    |
+| `MOD + Ctrl + Scroll Up`   | Increase window height by 5%                    |
 
 ### Window Modes
 
@@ -289,12 +290,13 @@ Thanks to [vinceliuice](https://github.com/vinceliuice) and [Fausto-Korpsvart](h
 
 ### Utilities
 
-| Keybind           | Action                      |
-| ----------------- | --------------------------- |
-| `MOD + S`         | Take screenshot (selection) |
-| `MOD + Shift + S` | Screenshot entire screen    |
-| `MOD + Ctrl + S`  | Screenshot current window   |
-| `MOD + P`         | Color picker (hyprpicker)   |
-| `MOD + Alt + W`   | Restart Waybar              |
+| Keybind           | Action                                                |
+| ----------------- | ----------------------------------------------------- |
+| `MOD + S`         | Take screenshot (full screen + clipboard)             |
+| `MOD + Shift + S` | Take screenshot (region selection + clipboard)        |
+| `MOD + Ctrl + S`  | Screenshot current window to disk                     |
+| `MOD + Shift + G` | Screen recording toggle (saves with system audio)     |
+| `MOD + P`         | Color picker (hyprpicker)                             |
+| `MOD + Alt + W`   | Restart Waybar                                        |
 
 ---

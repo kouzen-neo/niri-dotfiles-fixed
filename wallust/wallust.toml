@@ -46,8 +46,6 @@ check_contrast = true
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
 alacritty = { template = 'alacritty.toml', target = '~/.config/alacritty/colors.toml' }
 
-kitty = { src = 'kitty.conf', dst = '~/.config/kitty/colors.conf' }
-
 waybar = { src = 'waybar.css', dst = '~/.config/waybar/colors.css' }
 
 gtk3 = { src = 'gtk.css', dst = '~/.config/gtk-3.0/colors.css' }

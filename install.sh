@@ -7,7 +7,7 @@ IFS=$'\n\t'
 # CONFIGURATION
 # ==========================
 
-readonly REPO_URL="https://github.com/saatvik333/niri-dotfiles.git"
+readonly REPO_URL="https://github.com/kouzen-neo/niri-dotfiles-fixed.git"
 readonly DOTDIR="${HOME}/.dotfiles-sevens"
 readonly CONFIG_DIR="${HOME}/.config"
 readonly BACKUP_DIR="${HOME}/.config_backup_$(date +%Y%m%d_%H%M%S)"
@@ -48,22 +48,16 @@ readonly OPTIONAL_BLUETOOTH_PACKAGES=("bluez" "bluez-utils")
 readonly AUR_PACKAGES=(
   vicinae-bin
   wallust
-  dust
-  eza
   niri-switch
-  ttf-nerd-fonts-symbols
-  pavucontrol
-  thunar
-  minizip
-  awww-git
 )
 
 # Official repository packages
 readonly PACMAN_PACKAGES=(
-  niri waybar fish fastfetch mako alacritty kitty starship neovim yazi
-  zathura zathura-pdf-mupdf ttf-jetbrains-mono-nerd
+  niri waybar fish fastfetch mako alacritty starship neovim yazi
+  zathura zathura-pdf-mupdf ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
   qt5-wayland qt6-wayland polkit-gnome ffmpeg imagemagick unzip jq
-  gtklock rofi curl libnotify
+  gtklock rofi curl libnotify thunar pavucontrol eza dust minizip
+  grim slurp wl-clipboard wf-recorder ripgrep awww
 )
 
 # ==========================
@@ -176,7 +170,7 @@ EXAMPLES:
   ${0##*/} --help       # Display this help message
 
 REPORT BUGS:
-  https://github.com/saatvik333/niri-dotfiles/issues
+  https://github.com/kouzen-neo/niri-dotfiles-fixed/issues
 
 EOF
 }
@@ -903,8 +897,9 @@ verify_all_binaries() {
   info "Verifying all required binaries are installed..."
   local missing_binaries=()
   local binaries_to_check=(
-    niri waybar fish fastfetch mako alacritty kitty starship
+    niri waybar fish fastfetch mako alacritty starship
     nvim yazi vicinae gtklock zathura wallust awww rofi
+    grim slurp wf-recorder
   )
 
   for binary in "${binaries_to_check[@]}"; do
@@ -1184,6 +1179,8 @@ create_symlinks() {
   local linked=0
   local skipped=0
 
+  chmod +x "${DOTDIR}/scripts/"*.sh 2>/dev/null || true
+
   for folder in "${CONFIG_FOLDERS[@]}"; do
     if [[ -d "${DOTDIR}/${folder}" ]]; then
       local target="${CONFIG_DIR}/${folder}"
@@ -1226,6 +1223,15 @@ install_wallpapers() {
     if [[ ${#wallpapers[@]} -gt 0 ]]; then
       if cp -r "${DOTDIR}/wallpapers/"* "${wallpaper_dir}/" 2> /dev/null; then
         msg "Wallpapers installed to: ${wallpaper_dir}"
+
+        # Initialize first wallpaper in cache so wallpaper-restore works on first boot
+        local first_wall
+        first_wall="$(find "${wallpaper_dir}" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.webp" \) 2>/dev/null | head -1)"
+        if [[ -n "${first_wall}" ]]; then
+          mkdir -p "${HOME}/.cache/awww"
+          printf '%s\n' "${first_wall}" > "${HOME}/.cache/awww/last-wallpaper"
+          msg "Default wallpaper cache initialized: ${first_wall}"
+        fi
       else
         warn "Failed to copy wallpapers."
       fi
